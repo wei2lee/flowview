@@ -63,37 +63,13 @@ class FlowView : UIView {
         var offset:CGPoint = .zero
         var rowMaxY: CGFloat = 0
         for (i,subview) in subviews.enumerated() {
-            let size:CGSize
-            if let rowHeight = rowHeight {
-                size = CGSize(width: columnWidth, height: rowHeight)
+            let size:CGSize = self.flowViewContentSize(subview: subview, index: i, width: columnWidth)
+            if let value = sizeCache[subview.hashValue], value != size.height {
+                sizeCache[subview.hashValue] = size.height
+                invalidateIntrinsicContentSize()
             } else {
-                if sizeCache[subview.hashValue] == nil {
-                    
-                    if let contentView = subview as? FlowViewContentViewType {
-                        
-                        let height: CGFloat = contentView.flowViewContentHeight(flowView: self, width: columnWidth)
-                        size = CGSize(width: columnWidth, height: height)
-                        
-                        sizeCache[subview.hashValue] = size.height
-                        
-                    } else {
-                    
-                        var targetSize = UIView.layoutFittingCompressedSize
-                        targetSize.width = columnWidth
-                        
-                        let viewToSize = subview is UICollectionViewCell ? (subview as! UICollectionViewCell).contentView : subview
-                        
-                        size = viewToSize.systemLayoutSizeFitting(targetSize,
-                                                               withHorizontalFittingPriority: UILayoutPriority(999),
-                                                               verticalFittingPriority: UILayoutPriority(1))
-                        sizeCache[subview.hashValue] = size.height
-                        
-                    }
-                    invalidateIntrinsicContentSize()
-                } else {
-                    size = CGSize(width: columnWidth,
-                                  height: sizeCache[subview.hashValue]!)
-                }
+                sizeCache[subview.hashValue] = size.height
+                invalidateIntrinsicContentSize()
             }
             
             let origin = offset
@@ -108,6 +84,37 @@ class FlowView : UIView {
                 offset.y = rowMaxY + interitemSpacing
             }
         }
+    }
+    
+    func flowViewContentSize(subview: UIView, index: Int,  width columnWidth: CGFloat) -> CGSize {
+        let size:CGSize
+        if let rowHeight = rowHeight {
+            size = CGSize(width: columnWidth, height: rowHeight)
+        } else {
+            if sizeCache[subview.hashValue] == nil {
+                
+                if let contentView = subview as? FlowViewContentViewType {
+                    
+                    let height: CGFloat = contentView.flowViewContentHeight(flowView: self, width: columnWidth)
+                    size = CGSize(width: columnWidth, height: height)
+                    
+                } else {
+                    
+                    var targetSize = UIView.layoutFittingCompressedSize
+                    targetSize.width = columnWidth
+                    
+                    let viewToSize = subview is UICollectionViewCell ? (subview as! UICollectionViewCell).contentView : subview
+                    
+                    size = viewToSize.systemLayoutSizeFitting(targetSize,
+                                                              withHorizontalFittingPriority: UILayoutPriority(999),
+                                                              verticalFittingPriority: UILayoutPriority(1))
+                }
+            } else {
+                size = CGSize(width: columnWidth,
+                              height: sizeCache[subview.hashValue]!)
+            }
+        }
+        return size
     }
     
     override var intrinsicContentSize: CGSize {
