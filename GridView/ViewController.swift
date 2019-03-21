@@ -10,12 +10,32 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet var flowView: FlowView!
+    @IBOutlet var labelWithView: UIView!
+    @IBOutlet var label: UILabel!
+    var changeLabelIndex = 0
     let cellNib = UINib(nibName: "ContactLeadNewCell", bundle: nil)
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+    @IBAction func changeLabelText() {
+        func update() {
+            changeLabelIndex = changeLabelIndex % 5
+            changeLabelIndex = changeLabelIndex + 1
+            
+            for i in 0...changeLabelIndex {
+                label.text = (label.text ?? "") + " Label"
+            }
+            
+            flowView.invalidateSubviewSize(view: labelWithView)
+        }
+        UIView.animate(withDuration: 0.3) {
+            update()
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     @IBAction func delete() {
         func update() {
             if flowView.subviews.count > 0 {

@@ -259,28 +259,35 @@
                                         <rect key="frame" x="0.0" y="0.0" width="359" height="128"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwj-d7-t4m">
-                                                <rect key="frame" x="0.0" y="0.0" width="359" height="32"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="359" height="25.5"/>
                                                 <state key="normal" title="Delete First"/>
                                                 <connections>
                                                     <action selector="delete" destination="BYZ-38-t0r" eventType="touchUpInside" id="18y-pn-OkJ"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I8N-lM-g3Y">
+                                                <rect key="frame" x="0.0" y="25.5" width="359" height="25.5"/>
+                                                <state key="normal" title="Change Label Text"/>
+                                                <connections>
+                                                    <action selector="changeLabelText" destination="BYZ-38-t0r" eventType="touchUpInside" id="lTQ-Vf-0cH"/>
+                                                </connections>
+                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YKq-ZD-z0N">
-                                                <rect key="frame" x="0.0" y="32" width="359" height="32"/>
+                                                <rect key="frame" x="0.0" y="51" width="359" height="26"/>
                                                 <state key="normal" title="Add ContactCard to First"/>
                                                 <connections>
                                                     <action selector="addContactCard" destination="BYZ-38-t0r" eventType="touchUpInside" id="TZR-vP-YGy"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9rr-9F-AEm">
-                                                <rect key="frame" x="0.0" y="64" width="359" height="32"/>
+                                                <rect key="frame" x="0.0" y="77" width="359" height="25.5"/>
                                                 <state key="normal" title="Add TagView to First "/>
                                                 <connections>
                                                     <action selector="addTagView" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qcq-32-lMF"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIe-2P-XnW">
-                                                <rect key="frame" x="0.0" y="96" width="359" height="32"/>
+                                                <rect key="frame" x="0.0" y="102.5" width="359" height="25.5"/>
                                                 <state key="normal" title="Change Column Number"/>
                                                 <connections>
                                                     <action selector="changeColumnNumber" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ivk-RZ-IPr"/>
@@ -313,6 +320,8 @@
                     </view>
                     <connections>
                         <outlet property="flowView" destination="rdx-G9-jl9" id="Ylg-1h-jWP"/>
+                        <outlet property="label" destination="FmB-vb-rES" id="cVb-pL-gSU"/>
+                        <outlet property="labelWithView" destination="mCQ-Rh-MeX" id="MDl-CC-ENg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
