@@ -16,24 +16,29 @@ protocol FlowViewContentViewType {
 class FlowView : UIView {
     fileprivate var sizeCache: [Int: CGFloat] = [:]
     
+    @IBInspectable
     var columnNumber: Int = 3 {
         didSet {
             invalidateAllSubviewSize()
         }
     }
     
+    @IBInspectable
     var interitemSpacing: CGFloat = 10 {
         didSet {
             setNeedsLayout()
         }
     }
     
+    @IBInspectable
     var lineSpacing: CGFloat = 10 {
         didSet {
             invalidateAllSubviewSize()
         }
     }
-    var rowHeight: CGFloat? = nil {
+    
+    @IBInspectable
+    var rowHeight: CGFloat = -1 {
         didSet {
             invalidateAllSubviewSize()
         }
@@ -88,7 +93,7 @@ class FlowView : UIView {
     
     func flowViewContentSize(subview: UIView, index: Int,  width columnWidth: CGFloat) -> CGSize {
         let size:CGSize
-        if let rowHeight = rowHeight {
+        if rowHeight >= 0 {
             size = CGSize(width: columnWidth, height: rowHeight)
         } else {
             if sizeCache[subview.hashValue] == nil {
