@@ -12,11 +12,22 @@ class ViewController: UIViewController {
     @IBOutlet var flowView: FlowView!
     @IBOutlet var labelWithView: UIView!
     @IBOutlet var label: UILabel!
+    @IBOutlet var toggleAnimatedButton: UIButton!
+    var animated: Bool = true {
+        didSet {
+            if animated {
+                toggleAnimatedButton.setTitle("Toggle Animated Off", for: .normal)
+            } else {
+                toggleAnimatedButton.setTitle("Toggle Animated On", for: .normal)
+            }
+        }
+    }
     var changeLabelIndex = 0
     let cellNib = UINib(nibName: "ContactLeadNewCell", bundle: nil)
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        animated = true
     }
 
     @IBAction func changeLabelText() {
@@ -36,6 +47,21 @@ class ViewController: UIViewController {
         }
     }
     
+    func animateIfNeed(update:@escaping ()->()) {
+        if animated == false {
+            update()
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                update()
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    @IBAction func toggleAnimated() {
+        animated = !animated
+    }
+    
     @IBAction func delete() {
         func update() {
             if flowView.subviews.count > 0 {
@@ -44,10 +70,7 @@ class ViewController: UIViewController {
                 subview.removeFromSuperview()
             }
         }
-        UIView.animate(withDuration: 0.3) {
-            update()
-            self.view.layoutIfNeeded()
-        }
+        animateIfNeed(update: update)
     }
     
     @IBAction func addTagView() {
@@ -55,10 +78,7 @@ class ViewController: UIViewController {
             let viewToAdd = AIATagView()
             flowView.insertSubview(viewToAdd, at: 0)
         }
-        UIView.animate(withDuration: 0.3) {
-            update()
-            self.view.layoutIfNeeded()
-        }
+        animateIfNeed(update: update)
     }
     
     @IBAction func addContactCard() {
@@ -67,10 +87,7 @@ class ViewController: UIViewController {
             viewToAdd.clipsToBounds = true
             flowView.insertSubview(viewToAdd, at: 0)
         }
-        UIView.animate(withDuration: 0.3) {
-            update()
-            self.view.layoutIfNeeded()
-        }
+        animateIfNeed(update: update)
     }
     
     @IBAction func changeColumnNumber() {
@@ -81,10 +98,7 @@ class ViewController: UIViewController {
                 flowView.columnNumber = flowView.columnNumber + 1
             }
         }
-        UIView.animate(withDuration: 0.3) {
-            update()
-            self.view.layoutIfNeeded()
-        }
+        animateIfNeed(update: update)
     }
 }
 
