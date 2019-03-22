@@ -12,6 +12,12 @@ protocol FlowViewContentViewType {
     func flowViewContentHeight(flowView: FlowView, width: CGFloat) -> CGFloat
 }
 
+fileprivate extension NSObject {
+    var objectIdentifierHashValue: Int {
+        return ObjectIdentifier(self).hashValue
+    }
+}
+
 @IBDesignable
 class FlowView : UIView {
     fileprivate var sizeCache: [Int: CGFloat] = [:]
@@ -45,12 +51,12 @@ class FlowView : UIView {
     }
     
     func invalidateSubviewSize(view: UIView) {
-        sizeCache[view.hashValue] = nil
+        sizeCache[view.objectIdentifierHashValue] = nil
         setNeedsLayout()
     }
     
     func invalidateSubviewSize(index: Int) {
-        sizeCache[subviews[index].hashValue] = nil
+        sizeCache[subviews[index].objectIdentifierHashValue] = nil
         setNeedsLayout()
     }
     
@@ -69,11 +75,11 @@ class FlowView : UIView {
         var rowMaxY: CGFloat = 0
         for (i,subview) in subviews.enumerated() {
             let size:CGSize = self.flowViewContentSize(subview: subview, index: i, width: columnWidth)
-            if let value = sizeCache[subview.hashValue], value != size.height {
-                sizeCache[subview.hashValue] = size.height
+            if let value = sizeCache[subview.objectIdentifierHashValue], value != size.height {
+                sizeCache[subview.objectIdentifierHashValue] = size.height
                 invalidateIntrinsicContentSize()
-            } else {
-                sizeCache[subview.hashValue] = size.height
+            } else if sizeCache[subview.objectIdentifierHashValue] == nil {
+                sizeCache[subview.objectIdentifierHashValue] = size.height
                 invalidateIntrinsicContentSize()
             }
             
@@ -96,7 +102,7 @@ class FlowView : UIView {
         if rowHeight >= 0 {
             size = CGSize(width: columnWidth, height: rowHeight)
         } else {
-            if sizeCache[subview.hashValue] == nil {
+            if sizeCache[subview.objectIdentifierHashValue] == nil {
                 
                 if let contentView = subview as? FlowViewContentViewType {
                     
@@ -116,7 +122,7 @@ class FlowView : UIView {
                 }
             } else {
                 size = CGSize(width: columnWidth,
-                              height: sizeCache[subview.hashValue]!)
+                              height: sizeCache[subview.objectIdentifierHashValue]!)
             }
         }
         return size
