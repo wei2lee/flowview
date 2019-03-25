@@ -65,7 +65,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Saq-0I-4xI">
-                                <rect key="frame" x="8" y="8" width="359" height="487"/>
+                                <rect key="frame" x="8" y="8" width="359" height="467"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="359" placeholderIntrinsicHeight="631" translatesAutoresizingMaskIntoConstraints="NO" id="rdx-G9-jl9" customClass="FlowView" customModule="GridView" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="359" height="631"/>
@@ -258,48 +258,55 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="son-xz-rHa">
-                                <rect key="frame" x="8" y="503" width="359" height="156"/>
+                                <rect key="frame" x="8" y="483" width="359" height="176"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ytR-eJ-o8D">
-                                        <rect key="frame" x="0.0" y="0.0" width="359" height="156"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="176"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwj-d7-t4m">
-                                                <rect key="frame" x="0.0" y="0.0" width="359" height="26"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="359" height="25"/>
                                                 <state key="normal" title="Delete First"/>
                                                 <connections>
                                                     <action selector="delete" destination="BYZ-38-t0r" eventType="touchUpInside" id="18y-pn-OkJ"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iPh-Zd-QRd">
+                                                <rect key="frame" x="0.0" y="25" width="359" height="25.5"/>
+                                                <state key="normal" title="Toggle First View Show Hide"/>
+                                                <connections>
+                                                    <action selector="toggleShowHide" destination="BYZ-38-t0r" eventType="touchUpInside" id="tf9-OW-0vc"/>
+                                                </connections>
+                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FCr-eW-bO2">
-                                                <rect key="frame" x="0.0" y="26" width="359" height="26"/>
+                                                <rect key="frame" x="0.0" y="50.5" width="359" height="25"/>
                                                 <state key="normal" title="Toggle Animated"/>
                                                 <connections>
                                                     <action selector="toggleAnimated" destination="BYZ-38-t0r" eventType="touchUpInside" id="QUE-6r-GV0"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I8N-lM-g3Y">
-                                                <rect key="frame" x="0.0" y="52" width="359" height="26"/>
+                                                <rect key="frame" x="0.0" y="75.5" width="359" height="25"/>
                                                 <state key="normal" title="Change Label Text"/>
                                                 <connections>
                                                     <action selector="changeLabelText" destination="BYZ-38-t0r" eventType="touchUpInside" id="lTQ-Vf-0cH"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YKq-ZD-z0N">
-                                                <rect key="frame" x="0.0" y="78" width="359" height="26"/>
+                                                <rect key="frame" x="0.0" y="100.5" width="359" height="25"/>
                                                 <state key="normal" title="Add ContactCard to First"/>
                                                 <connections>
                                                     <action selector="addContactCard" destination="BYZ-38-t0r" eventType="touchUpInside" id="TZR-vP-YGy"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9rr-9F-AEm">
-                                                <rect key="frame" x="0.0" y="104" width="359" height="26"/>
+                                                <rect key="frame" x="0.0" y="125.5" width="359" height="25.5"/>
                                                 <state key="normal" title="Add TagView to First "/>
                                                 <connections>
                                                     <action selector="addTagView" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qcq-32-lMF"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIe-2P-XnW">
-                                                <rect key="frame" x="0.0" y="130" width="359" height="26"/>
+                                                <rect key="frame" x="0.0" y="151" width="359" height="25"/>
                                                 <state key="normal" title="Change Column Number"/>
                                                 <connections>
                                                     <action selector="changeColumnNumber" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ivk-RZ-IPr"/>
@@ -314,7 +321,7 @@
                                     <constraint firstItem="ytR-eJ-o8D" firstAttribute="leading" secondItem="son-xz-rHa" secondAttribute="leading" id="b5Z-EW-oz5"/>
                                     <constraint firstItem="ytR-eJ-o8D" firstAttribute="top" secondItem="son-xz-rHa" secondAttribute="top" id="hru-vh-ShJ"/>
                                     <constraint firstAttribute="bottom" secondItem="ytR-eJ-o8D" secondAttribute="bottom" id="r03-bZ-hBh"/>
-                                    <constraint firstAttribute="height" constant="156" id="rYT-jB-pyQ"/>
+                                    <constraint firstAttribute="height" constant="176" id="rYT-jB-pyQ"/>
                                 </constraints>
                             </view>
                         </subviews>

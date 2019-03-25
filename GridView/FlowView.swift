@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 protocol FlowViewContentViewType {
     func flowViewContentHeight(flowView: FlowView, width: CGFloat) -> CGFloat
@@ -21,6 +23,7 @@ fileprivate extension NSObject {
 @IBDesignable
 class FlowView : UIView {
     fileprivate var sizeCache: [Int: CGFloat] = [:]
+    fileprivate var subviewDisposables: [Int: Disposable] = [:]
     
     @IBInspectable
     var columnNumber: Int = 3 {
@@ -65,6 +68,8 @@ class FlowView : UIView {
         setNeedsLayout()
     }
     
+    var visibleSubviews: [UIView] { return subviews.filter { !$0.isHidden } }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         for subview in subviews {
@@ -73,7 +78,10 @@ class FlowView : UIView {
         let columnWidth = floor((bounds.width - (lineSpacing * (CGFloat(columnNumber) - 1))) / CGFloat(columnNumber))
         var offset:CGPoint = .zero
         var rowMaxY: CGFloat = 0
-        for (i,subview) in subviews.enumerated() {
+        
+        let visibleSubviews = self.visibleSubviews
+        
+        for (i,subview) in visibleSubviews.enumerated() {
             let size:CGSize = self.flowViewContentSize(subview: subview, index: i, width: columnWidth)
             if let value = sizeCache[subview.objectIdentifierHashValue], value != size.height {
                 sizeCache[subview.objectIdentifierHashValue] = size.height
@@ -129,10 +137,31 @@ class FlowView : UIView {
     }
     
     override var intrinsicContentSize: CGSize {
-        let frames: [CGRect] = subviews.map { $0.frame }
+        let visibleSubviews = self.visibleSubviews
+        
+        let frames: [CGRect] = visibleSubviews.map { $0.frame }
         let maxYs = frames.map { $0.maxY }
         let maxXs = frames.map { $0.maxX }
         let ret = CGSize(width: maxXs.max() ?? 0, height: maxYs.max() ?? 0)
         return ret
+    }
+    
+    override func didAddSubview(_ subview: UIView) {
+        super.didAddSubview(subview)
+        let disposable = subview.rx.observe(Bool.self, #keyPath(UIView.isHidden)).subscribe(onNext: { [weak self, weak subview] value in
+            guard let `self` = self, let subview = subview else { return }
+            if value != nil {
+                self.invalidateSubviewSize(view: subview)
+            }
+        })
+        subviewDisposables[subview.objectIdentifierHashValue] = disposable
+    }
+    
+    override func willRemoveSubview(_ subview: UIView) {
+        super.willRemoveSubview(subview)
+        if let disposable = subviewDisposables[subview.objectIdentifierHashValue] {
+            disposable.dispose()
+            subviewDisposables[subview.objectIdentifierHashValue] = nil
+        }
     }
 }

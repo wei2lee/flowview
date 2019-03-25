@@ -30,6 +30,18 @@ class ViewController: UIViewController {
         animated = true
     }
 
+    @IBAction func toggleShowHide() {
+        func update() {
+            if let firstView = flowView.subviews.first {
+                firstView.isHidden = !firstView.isHidden
+            }
+        }
+        UIView.animate(withDuration: 0.3) {
+            update()
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     @IBAction func changeLabelText() {
         func update() {
             changeLabelIndex = changeLabelIndex % 5
