@@ -36,10 +36,7 @@ class ViewController: UIViewController {
                 firstView.isHidden = !firstView.isHidden
             }
         }
-        UIView.animate(withDuration: 0.3) {
-            update()
-            self.view.layoutIfNeeded()
-        }
+        animateIfNeed(update: update)
     }
     
     @IBAction func changeLabelText() {
@@ -53,10 +50,7 @@ class ViewController: UIViewController {
             
             flowView.invalidateSubviewSize(view: labelWithView)
         }
-        UIView.animate(withDuration: 0.3) {
-            update()
-            self.view.layoutIfNeeded()
-        }
+        animateIfNeed(update: update)
     }
     
     func animateIfNeed(update:@escaping ()->()) {
